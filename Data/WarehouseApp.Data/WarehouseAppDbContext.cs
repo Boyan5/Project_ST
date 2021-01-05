@@ -16,8 +16,10 @@ namespace WarehouseApp.Data
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cupboard> Cupboards { get; set; }
+        public DbSet<Section> Sections { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

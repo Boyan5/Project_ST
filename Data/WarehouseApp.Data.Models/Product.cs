@@ -15,8 +15,8 @@ namespace WarehouseApp.Data.Models
         [Range(0,5000)]
         public float Price { get; set; }
 
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int CupboardId { get; set; }
+        public virtual Cupboard Cupboard { get; set; }
 
     }
 }

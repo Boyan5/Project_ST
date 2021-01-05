@@ -174,20 +174,22 @@ namespace WarehouseApp.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WarehouseApp.Data.Models.Category", b =>
+            modelBuilder.Entity("WarehouseApp.Data.Models.Cupboard", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Capacity");
+
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Name");
+                    b.Property<int>("SectionId");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.HasIndex("SectionId");
+
+                    b.ToTable("Cupboards");
                 });
 
             modelBuilder.Entity("WarehouseApp.Data.Models.Product", b =>
@@ -195,9 +197,9 @@ namespace WarehouseApp.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<DateTime>("CreatedOn");
+
+                    b.Property<int>("CupboardId");
 
                     b.Property<string>("Description")
                         .IsRequired();
@@ -212,9 +214,47 @@ namespace WarehouseApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("CupboardId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("WarehouseApp.Data.Models.Room", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("WarehouseApp.Data.Models.Section", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("RoomId");
+
+                    b.Property<int>("SectionType");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Sections");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -262,11 +302,27 @@ namespace WarehouseApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("WarehouseApp.Data.Models.Cupboard", b =>
+                {
+                    b.HasOne("WarehouseApp.Data.Models.Section", "Section")
+                        .WithMany()
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("WarehouseApp.Data.Models.Product", b =>
                 {
-                    b.HasOne("WarehouseApp.Data.Models.Category", "Category")
+                    b.HasOne("WarehouseApp.Data.Models.Cupboard", "Cupboard")
                         .WithMany()
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("CupboardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WarehouseApp.Data.Models.Section", b =>
+                {
+                    b.HasOne("WarehouseApp.Data.Models.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
