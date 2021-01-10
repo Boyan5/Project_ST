@@ -26,11 +26,15 @@
     <ProjectReference Include="..\..\Data\WarehouseApp.Data\WarehouseApp.Data.csproj" />
     <ProjectReference Include="..\..\Services\WarehouseApp.Services.Messaging\WarehouseApp.Services.Messaging.csproj" />
     <ProjectReference Include="..\..\Data\WarehouseApp.Data.Common\WarehouseApp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Services\WarehouseApp.Services.DataServices\WarehouseApp.Services.DataServices.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Areas\Identity\IdentityHostingStartup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Product\" />
   </ItemGroup>
 </Project>

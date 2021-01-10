@@ -7,10 +7,10 @@ using WarehouseApp.Data.Common;
 namespace WarehouseApp.Data
 {
     public class DbRepository<TEntity> : IRepository<TEntity>, IDisposable
-        where TEntity : class
+        where TEntity : class, ICreatable
     {
         private readonly WarehouseAppDbContext context;
-        private DbSet<TEntity> dbSet;
+        private readonly DbSet<TEntity> dbSet;
 
         public DbRepository(WarehouseAppDbContext context)
         {
@@ -18,9 +18,13 @@ namespace WarehouseApp.Data
             this.dbSet = this.context.Set<TEntity>();
         }
 
-        public Task AddAsync(TEntity entity)
+        public TEntity AddAsync(TEntity entity)
         {
-            return this.dbSet.AddAsync(entity);
+            entity.CreatedOn = DateTime.UtcNow;
+            this.dbSet.AddAsync(entity);
+            this.context.SaveChanges();
+            return entity;
+           
         }
 
         public IQueryable<TEntity> All()

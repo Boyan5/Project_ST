@@ -9,7 +9,7 @@ namespace WarehouseApp.Data.Common
     {
         IQueryable<TEntity> All();
 
-        Task AddAsync(TEntity entity);
+        TEntity AddAsync(TEntity entity);
 
         void Delete(TEntity entity);
 
