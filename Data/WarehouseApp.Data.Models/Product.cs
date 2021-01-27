@@ -12,8 +12,13 @@ namespace WarehouseApp.Data.Models
         public string Description { get; set; }
         [Required]
         public string Path { get; set; }
-        [Range(0,5000)]
+        [Required]
         public float Price { get; set; }
+        [Required]
+        public float Capacity { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
 
         public int CupboardId { get; set; }
         public virtual Cupboard Cupboard { get; set; }

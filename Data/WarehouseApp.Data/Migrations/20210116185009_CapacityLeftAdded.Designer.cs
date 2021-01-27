@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WarehouseApp.Data;
 
 namespace WarehouseApp.Data.Migrations
 {
     [DbContext(typeof(WarehouseAppDbContext))]
-    partial class WarehouseAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210116185009_CapacityLeftAdded")]
+    partial class CapacityLeftAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,8 +220,6 @@ namespace WarehouseApp.Data.Migrations
 
                     b.Property<float>("Price");
 
-                    b.Property<int>("Quantity");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CupboardId");
@@ -249,8 +249,6 @@ namespace WarehouseApp.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("CreatedOn");
-
-                    b.Property<int>("CupboardCapacity");
 
                     b.Property<string>("Description");
 

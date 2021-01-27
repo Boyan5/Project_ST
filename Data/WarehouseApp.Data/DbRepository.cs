@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,11 @@ namespace WarehouseApp.Data
             this.dbSet = this.context.Set<TEntity>();
         }
 
+        public TEntity GetById<T>(T id)
+        {
+            return context.Set<TEntity>().Find(id);
+        }
+
         public TEntity AddAsync(TEntity entity)
         {
             entity.CreatedOn = DateTime.UtcNow;
@@ -30,6 +36,11 @@ namespace WarehouseApp.Data
         public IQueryable<TEntity> All()
         {
             return this.dbSet;
+        }
+
+        public IEnumerable<TEntity> AllEnum()
+        {
+            return this.dbSet.AsEnumerable();
         }
 
         public void Delete(TEntity entity)
