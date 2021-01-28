@@ -1,0 +1,26 @@
+﻿@model WarehouseApp.Data.DTO.ViewModels.CupboardDetailsViewModel
+@{
+    ViewData["Title"] = "Cupboards";
+}
+
+<h1>Cupboard details for id: @Model.Id</h1>
+<br>
+<h4>Capacity: @Model.CapacityLeft / @Model.MaxCapacity (@Model.CapacityPercentage %)</h4>
+
+<div class="row text-center">
+    @foreach (var productView in Model.AllProducts)
+    {
+        var artPath = @"/images/" + productView.Name.ToLower().Replace(" ", string.Empty) + productView.Path;
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <img class="card-img-top" src="@artPath" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">@productView.Name</h4>
+                </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" asp-action="Details" asp-controller="Product" asp-route-id="@productView.Id">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
